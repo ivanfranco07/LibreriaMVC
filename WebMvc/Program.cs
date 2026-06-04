@@ -1,9 +1,13 @@
-Console.WriteLine("Hello World");
+using Microsoft.EntityFrameworkCore;
+using WebMvc.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+
+builder.Services.AddDbContext<LibreriaDbContext>(options =>
+    options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
 
 var app = builder.Build();
 
