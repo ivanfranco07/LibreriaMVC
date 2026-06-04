@@ -1,9 +1,10 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
 using WebMvc.Models;
 
 namespace WebMvc.Data
 {
-    public class LibreriaDbContext : DbContext
+    public class LibreriaDbContext : IdentityDbContext
     {
         public LibreriaDbContext(DbContextOptions options) : base(options){}
 

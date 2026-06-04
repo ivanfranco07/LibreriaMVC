@@ -44,15 +44,15 @@ namespace WebMvc.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
+                    Nombre = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Isbn = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Editorial = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CantidadDePaginas = table.Column<int>(type: "int", nullable: false),
                     Precio = table.Column<double>(type: "float", nullable: false),
+                    UrlImagenTapa = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Sinopsis = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Idioma = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     FechaPublicacion = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    IdAutor = table.Column<int>(type: "int", nullable: false),
-                    AutorId = table.Column<int>(type: "int", nullable: true),
                     IdCategoria = table.Column<int>(type: "int", nullable: false),
                     CategoriaId = table.Column<int>(type: "int", nullable: true)
                 },
@@ -60,21 +60,40 @@ namespace WebMvc.Migrations
                 {
                     table.PrimaryKey("PK_Libros", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Libros_Autores_AutorId",
-                        column: x => x.AutorId,
-                        principalTable: "Autores",
-                        principalColumn: "Id");
-                    table.ForeignKey(
                         name: "FK_Libros_Categorias_CategoriaId",
                         column: x => x.CategoriaId,
                         principalTable: "Categorias",
                         principalColumn: "Id");
                 });
 
+            migrationBuilder.CreateTable(
+                name: "AutorLibro",
+                columns: table => new
+                {
+                    ListaAutoresId = table.Column<int>(type: "int", nullable: false),
+                    ListaLibrosId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AutorLibro", x => new { x.ListaAutoresId, x.ListaLibrosId });
+                    table.ForeignKey(
+                        name: "FK_AutorLibro_Autores_ListaAutoresId",
+                        column: x => x.ListaAutoresId,
+                        principalTable: "Autores",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_AutorLibro_Libros_ListaLibrosId",
+                        column: x => x.ListaLibrosId,
+                        principalTable: "Libros",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_Libros_AutorId",
-                table: "Libros",
-                column: "AutorId");
+                name: "IX_AutorLibro_ListaLibrosId",
+                table: "AutorLibro",
+                column: "ListaLibrosId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Libros_CategoriaId",
@@ -86,10 +105,13 @@ namespace WebMvc.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Libros");
+                name: "AutorLibro");
 
             migrationBuilder.DropTable(
                 name: "Autores");
+
+            migrationBuilder.DropTable(
+                name: "Libros");
 
             migrationBuilder.DropTable(
                 name: "Categorias");

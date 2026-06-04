@@ -12,7 +12,7 @@ using WebMvc.Data;
 namespace WebMvc.Migrations
 {
     [DbContext(typeof(LibreriaDbContext))]
-    [Migration("20260604150410_InitialMigration")]
+    [Migration("20260604181650_InitialMigration")]
     partial class InitialMigration
     {
         /// <inheritdoc />
@@ -24,6 +24,21 @@ namespace WebMvc.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("AutorLibro", b =>
+                {
+                    b.Property<int>("ListaAutoresId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ListaLibrosId")
+                        .HasColumnType("int");
+
+                    b.HasKey("ListaAutoresId", "ListaLibrosId");
+
+                    b.HasIndex("ListaLibrosId");
+
+                    b.ToTable("AutorLibro");
+                });
 
             modelBuilder.Entity("WebMvc.Models.Autor", b =>
                 {
@@ -71,9 +86,6 @@ namespace WebMvc.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("AutorId")
-                        .HasColumnType("int");
-
                     b.Property<int>("CantidadDePaginas")
                         .HasColumnType("int");
 
@@ -87,9 +99,6 @@ namespace WebMvc.Migrations
                     b.Property<DateTime>("FechaPublicacion")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdAutor")
-                        .HasColumnType("int");
-
                     b.Property<int>("IdCategoria")
                         .HasColumnType("int");
 
@@ -101,6 +110,10 @@ namespace WebMvc.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<string>("Nombre")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<double>("Precio")
                         .HasColumnType("float");
 
@@ -108,33 +121,39 @@ namespace WebMvc.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
+                    b.Property<string>("UrlImagenTapa")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
-                    b.HasIndex("AutorId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CategoriaId");
 
                     b.ToTable("Libros");
                 });
 
+            modelBuilder.Entity("AutorLibro", b =>
+                {
+                    b.HasOne("WebMvc.Models.Autor", null)
+                        .WithMany()
+                        .HasForeignKey("ListaAutoresId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("WebMvc.Models.Libro", null)
+                        .WithMany()
+                        .HasForeignKey("ListaLibrosId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("WebMvc.Models.Libro", b =>
                 {
-                    b.HasOne("WebMvc.Models.Autor", "Autor")
-                        .WithMany("ListaLibros")
-                        .HasForeignKey("AutorId");
-
                     b.HasOne("WebMvc.Models.Categoria", "Categoria")
                         .WithMany()
                         .HasForeignKey("CategoriaId");
 
-                    b.Navigation("Autor");
-
                     b.Navigation("Categoria");
-                });
-
-            modelBuilder.Entity("WebMvc.Models.Autor", b =>
-                {
-                    b.Navigation("ListaLibros");
                 });
 #pragma warning restore 612, 618
         }

@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using WebMvc.Data;
 
@@ -8,6 +9,23 @@ builder.Services.AddControllersWithViews();
 
 builder.Services.AddDbContext<LibreriaDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DbConnection")));
+
+builder.Services.AddIdentityCore<IdentityUser>(options =>
+ {
+     options.SignIn.RequireConfirmedAccount = false;
+     options.Password.RequireNonAlphanumeric = false;
+ })
+ .AddRoles<IdentityRole>()
+ .AddEntityFrameworkStores<LibreriaDbContext>()
+ .AddSignInManager();
+
+builder.Services.ConfigureApplicationCookie(o =>
+{
+    o.ExpireTimeSpan = TimeSpan.FromMinutes(60);
+    o.SlidingExpiration = true;
+    o.LoginPath = "/Usuario/Login";
+    o.AccessDeniedPath = "/Usuario/AccessDenied";
+});
 
 var app = builder.Build();
 
