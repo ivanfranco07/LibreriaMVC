@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using WebMvc.Data;
 
@@ -11,9 +12,11 @@ using WebMvc.Data;
 namespace WebMvc.Migrations
 {
     [DbContext(typeof(LibreriaDbContext))]
-    partial class LibreriaDbContextModelSnapshot : ModelSnapshot
+    [Migration("20260604224912_NuevasTablas2")]
+    partial class NuevasTablas2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -222,15 +225,17 @@ namespace WebMvc.Migrations
                     b.Property<int>("LibroId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UsuarioId")
-                        .IsRequired()
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsuarioId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("LibroId");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("UsuarioId1");
 
                     b.ToTable("Favoritos");
                 });
@@ -306,15 +311,17 @@ namespace WebMvc.Migrations
                     b.Property<int>("LibroId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UsuarioId")
-                        .IsRequired()
+                    b.Property<int>("UsuarioId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("UsuarioId1")
                         .HasColumnType("nvarchar(450)");
 
                     b.HasKey("Id");
 
                     b.HasIndex("LibroId");
 
-                    b.HasIndex("UsuarioId");
+                    b.HasIndex("UsuarioId1");
 
                     b.ToTable("Reviews");
                 });
@@ -473,9 +480,7 @@ namespace WebMvc.Migrations
 
                     b.HasOne("WebMvc.Models.Usuario", "Usuario")
                         .WithMany("PeliculasFavoritas")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UsuarioId1");
 
                     b.Navigation("Libro");
 
@@ -501,9 +506,7 @@ namespace WebMvc.Migrations
 
                     b.HasOne("WebMvc.Models.Usuario", "Usuario")
                         .WithMany("ReviewsUsuario")
-                        .HasForeignKey("UsuarioId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("UsuarioId1");
 
                     b.Navigation("Libro");
 

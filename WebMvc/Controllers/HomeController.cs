@@ -1,5 +1,7 @@
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using WebMvc.Data;
 using WebMvc.Models;
 
 namespace WebMvc.Controllers
@@ -7,15 +9,19 @@ namespace WebMvc.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly LibreriaDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, LibreriaDbContext context)
         {
             _logger = logger;
+            _context = context;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var libros= await _context.Libros.ToListAsync();
+
+            return View(libros);
         }
 
         public IActionResult Privacy()

@@ -1,8 +1,132 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<Libro>
+
+@{
+    ViewData["Title"] = "Inicio - Catálogo de Libros";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
-</div>
+<nav class="navbar navbar-expand-lg navbar-light bg-white border-bottom fixed-top px-4">
+    <div class="container-fluid">
+        <a class="navbar-brand fw-bold text-primary" href="/">DotNet Books</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarContent">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                <li class="nav-item"><a class="nav-link active" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="/Documentation">Documentation</a></li>
+                <li class="nav-item"><a class="nav-link" href="/Authors">Authors</a></li>
+            </ul>
+            <form class="d-flex me-3">
+                <input class="form-control me-2" type="search" placeholder="Search architecture books..." aria-label="Search">
+            </form>
+            <div class="d-flex align-items-center">
+                <a href="/Login" class="btn btn-link text-dark text-decoration-none me-3">Login</a>
+                <a href="/Register" class="btn btn-primary">Sign Up</a>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<main class="container mt-5 pt-5 pb-5">
+    <div class="row align-items-center mb-5 py-5">
+        <div class="col-lg-6">
+            <span class="badge bg-light text-primary border mb-3">LATEST RELEASE: .NET 8 ARCHITECTURE GUIDE</span>
+            <h1 class="display-4 fw-bold mb-4">Master ASP.NET Core <span class="text-primary">from the Inside Out</span></h1>
+            <p class="lead text-secondary mb-4">A curated collection of highly technical resources for modern web architects. Deep dives into MVC, Entity Framework Core, and Microservices patterns.</p>
+            <div class="d-flex gap-3">
+                <a href="#" class="btn btn-primary btn-lg px-4">Browse Collection &rarr;</a>
+                <a href="#" class="btn btn-outline-primary btn-lg px-4">View API Docs</a>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="bg-dark rounded-3 p-4 shadow-lg text-white font-monospace small">
+                <div class="d-flex gap-2 mb-3">
+                    <span class="rounded-circle bg-danger" style="width:12px;height:12px;"></span>
+                    <span class="rounded-circle bg-warning" style="width:12px;height:12px;"></span>
+                    <span class="rounded-circle bg-success" style="width:12px;height:12px;"></span>
+                </div>
+                <pre class="mb-0"><code><span class="text-info">public class</span> Program
+{
+                <span class="text-info">public static void</span> Main(<span class="text-info">string[]</span> args)
+    {
+                <span class="text-info">var</span> builder = WebApplication.CreateBuilder(args);
+                <span class="text-secondary">// Register EF Core Services</span>
+        builder.Services.AddDbContext&lt;AppDbContext&gt;(options => 
+            options.UseSqlServer(connectionString));
+        
+                <span class="text-info">var</span> app = builder.Build();
+        app.MapGet(<span class="text-success">"/"</span>, () => <span class="text-success">"Hello Architect!"</span>);
+        app.Run();
+    }
+}</code></pre>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4 border-top pt-4">
+        <h2 class="fw-bold h4">Architectural Masterpieces</h2>
+        <div class="dropdown">
+            <button class="btn btn-light border dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                Sorted by: <strong>Newest Releases</strong>
+            </button>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <!-- Book Cards -->
+        @foreach (var book in Model)
+        {
+            <div class="col-md-3">
+                <div class="card h-100 border-0 shadow-sm overflow-hidden">
+                    <div class="bg-light p-4 text-center">
+                        <img src="@book.UrlImagenTapa" class="img-fluid rounded shadow-sm" alt="@book.Nombre">
+                    </div>
+                    <div class="card-body">
+                        <small class="text-primary fw-bold text-uppercase" style="font-size: 10px;">@book.Categoria</small>
+                        <h5 class="card-title fw-bold mt-1">@book.Nombre</h5>
+                        <p class="card-text text-secondary small">@book.ListaAutores</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <span class="fw-bold h5 mb-0">$@book.Precio</span>
+                            <a href="#" class="btn btn-link btn-sm text-primary p-0">View Details &rarr;</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</main>
+
+<footer class="bg-white border-top py-5">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-md-4">
+                <h5 class="fw-bold">DotNet Books</h5>
+                <p class="text-secondary small">The world's premier library for ASP.NET Core professionals and enterprise architects.</p>
+                <p class="text-muted small">&copy; 2024 DotNet Books. Built for architects.</p>
+            </div>
+            <div class="col-md-2">
+                <h6 class="fw-bold small text-uppercase">Resources</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="#" class="text-secondary text-decoration-none">Documentation</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">API Reference</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Quickstarts</a></li>
+                </ul>
+            </div>
+            <div class="col-md-2">
+                <h6 class="fw-bold small text-uppercase">Company</h6>
+                <ul class="list-unstyled small">
+                    <li><a href="#" class="text-secondary text-decoration-none">About Us</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Contact</a></li>
+                    <li><a href="#" class="text-secondary text-decoration-none">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div class="col-md-4 text-md-end">
+                <h6 class="fw-bold small text-uppercase mb-3">Connect</h6>
+                <div class="d-flex justify-content-md-end gap-2">
+                    <a href="#" class="btn btn-light btn-sm rounded-circle"><i class="bi bi-twitter"></i></a>
+                    <a href="#" class="btn btn-light btn-sm rounded-circle"><i class="bi bi-github"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>

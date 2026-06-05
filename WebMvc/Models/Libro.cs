@@ -7,19 +7,23 @@ namespace WebMvc.Models
     {
         public int Id { get; set; }
         [Required]
+        [StringLength(100)]
         public string Nombre { get; set; }
         [Required]
         public string Isbn { get; set; }
         [Required]
+        [StringLength(50)]
         public string Editorial { get; set; }
         [Required]
         public int CantidadDePaginas { get; set; }
         [Required]
+        [DisplayFormat(DataFormatString = "{0:F2}")]
         public double Precio { get; set; }
         [Url]
         [Required]
         public string UrlImagenTapa { get; set; }
         public string Sinopsis { get; set; }
+        [StringLength(100)]
         public string Idioma { get; set; }
         [DisplayFormat(DataFormatString= "{0:dd/MM/yyyy}", ApplyFormatInEditMode= true)]
         public DateTime FechaPublicacion { get; set; }
