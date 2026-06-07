@@ -1,0 +1,43 @@
+﻿@model Usuario
+@{
+    ViewData["Title"] = "Registro de Usuario";
+}
+
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+
+    <!-- Right Form Section -->
+    <div class="col-12 col-lg-7 d-flex align-items-center justify-content-center p-5 mt-5">
+        <div class="w-100" style="max-width: 440px;">
+            <h1 class="fw-bold mb-1 h2">Crear cuenta</h1>
+
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-secondary">Nombre completo</label>
+                    <input type="text" class="form-control py-2">
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-secondary">Correo electrónico</label>
+                    <input type="email" class="form-control py-2">
+                </div>
+
+                <div class="row g-3 mb-4">
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold text-secondary">Contraseña</label>
+                        <input type="password" class="form-control py-2">
+                    </div>
+                    <div class="col-md-6">
+                        <label class="form-label small fw-bold text-secondary">Confirmar contraseña</label>
+                        <input type="password" class="form-control py-2">
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold mb-4">Registrarse &rarr;</button>
+
+                <div class="text-center border-top pt-4">
+                    <p class="text-secondary small">¿Ya tenés una cuenta? <a href="/Login" class="fw-bold text-primary text-decoration-none">Iniciar sesión</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

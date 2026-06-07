@@ -1,0 +1,43 @@
+﻿@model Usuario
+@{
+    ViewData["Title"] = "Inicio de Sesión";
+}
+
+<div class="container d-flex align-items-center justify-content-center" style="min-height: 100vh;">
+    <div class="w-100" style="max-width: 480px;">
+        <div class="card border-0 shadow-sm p-4">
+            <div class="text-center mb-4">
+                <h1 class="fw-bold h2">Bienvenido.</h1>
+                <p class="text-secondary">Inicia sesión en DotNet Books para acceder a nuestra librería virtual.</p>
+            </div>
+
+            <form method="post">
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-uppercase text-secondary">Correo electrónico</label>
+                    <div class="input-group border rounded">
+                        <span class="input-group-text bg-white border-0"><i class="bi bi-envelope text-muted"></i></span>
+                        <input type="email" class="form-control border-0 py-2">
+                    </div>
+                </div>
+
+                <div class="mb-3">
+                    <div class="d-flex justify-content-between">
+                        <label class="form-label small fw-bold text-uppercase text-secondary">Contraseña</label>
+                        <a href="#" class="small text-primary text-decoration-none">¿Olvidaste tu contraseña?</a>
+                    </div>
+                    <div class="input-group border rounded">
+                        <span class="input-group-text bg-white border-0"><i class="bi bi-lock text-muted"></i></span>
+                        <input type="password" class="form-control border-0 py-2">
+                        <span class="input-group-text bg-white border-0"><i class="bi bi-eye text-muted"></i></span>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary w-100 py-2 fw-bold mb-4">Iniciar sesión &rarr;</button>
+
+                <div class="text-center">
+                    <p class="text-secondary small">¿Sos nuevo en DotNet Books? <a href="/Register" class="fw-bold text-primary text-decoration-none">Crear una cuenta</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
