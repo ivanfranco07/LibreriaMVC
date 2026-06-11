@@ -30,4 +30,23 @@ namespace WebMvc.Models
         public string Clave { get; set; }
         public bool Recordarme { get; set; }
     }
+    public class RegistroViewModel
+    {
+        [Required(ErrorMessage ="Debes ingresar un nombre.")]
+        [StringLength(50)]
+        public string Nombre { get; set; }
+        [Required(ErrorMessage ="Debes ingresar un apellido.")]
+        [StringLength(50)]
+        public string Apellido { get; set; }
+        [EmailAddress(ErrorMessage ="Debes ingresar un email válido.")]
+        public string Email { get; set; }
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage ="La constraseña es obligatoria.")]
+        public string Clave { get; set; }
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage ="Debes confirmar la clave")]
+        [Compare("Clave", ErrorMessage ="Las claves no coinciden.")]
+        public string ConfimarClave { get; set; }
+
+    }
 }

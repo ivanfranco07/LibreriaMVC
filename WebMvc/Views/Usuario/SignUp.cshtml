@@ -1,4 +1,4 @@
-﻿@model Usuario
+﻿@model RegistroViewModel
 @{
     ViewData["Title"] = "Registro de Usuario";
 }
@@ -11,31 +11,42 @@
             <h1 class="fw-bold mb-1 h2">Crear cuenta</h1>
 
             <form method="post">
+                <div asp-validation-summary="ModelOnly"></div>
                 <div class="mb-3">
-                    <label class="form-label small fw-bold text-secondary">Nombre completo</label>
-                    <input type="text" class="form-control py-2">
+                    <label class="form-label small fw-bold text-secondary">Nombre</label>
+                    <input asp-for="Nombre" type="text" class="form-control py-2">
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+
+                <div class="mb-3">
+                    <label class="form-label small fw-bold text-secondary">Apellido</label>
+                    <input asp-for="Apellido" type="text" class="form-control py-2">
+                    <span asp-validation-for="Apellido" class="text-danger"></span>
                 </div>
 
                 <div class="mb-3">
                     <label class="form-label small fw-bold text-secondary">Correo electrónico</label>
-                    <input type="email" class="form-control py-2">
+                    <input asp-for="Email" type="email" class="form-control py-2">
+                    <span asp-validation-for="Email" class="text-danger"></span>
                 </div>
 
                 <div class="row g-3 mb-4">
                     <div class="col-md-6">
                         <label class="form-label small fw-bold text-secondary">Contraseña</label>
-                        <input type="password" class="form-control py-2">
+                        <input asp-for="Clave" type="password" class="form-control py-2">
+                        <span asp-validation-for="Clave" class="text-danger"></span>
                     </div>
                     <div class="col-md-6">
                         <label class="form-label small fw-bold text-secondary">Confirmar contraseña</label>
-                        <input type="password" class="form-control py-2">
+                        <input asp-for="ConfimarClave" type="password" class="form-control py-2">
+                        <span asp-validation-for="ConfimarClave" class="text-danger"></span>
                     </div>
                 </div>
 
                 <button type="submit" class="btn btn-primary w-100 py-2 fw-bold mb-4">Registrarse &rarr;</button>
 
                 <div class="text-center border-top pt-4">
-                    <p class="text-secondary small">¿Ya tenés una cuenta? <a href="/Login" class="fw-bold text-primary text-decoration-none">Iniciar sesión</a></p>
+                    <p class="text-secondary small">¿Ya tenés una cuenta? <a href="LogIn" class="fw-bold text-primary text-decoration-none">Iniciar sesión</a></p>
                 </div>
             </form>
         </div>

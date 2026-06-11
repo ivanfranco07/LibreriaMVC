@@ -17,17 +17,12 @@ namespace WebMvc.Controllers
         }
 
         // GET: UsuarioController
-        public async Task<IActionResult> Login()
+        public async Task<IActionResult> LogIn()
         {
             return View();
         }
-        public async Task<IActionResult> SignUp()
-        {
-            return View();
-        }
-
         [HttpPost]
-        public async Task<IActionResult> Login(LogInViewModel usuario)
+        public async Task<IActionResult> LogIn(LogInViewModel usuario)
         {
             if (ModelState.IsValid)
             {
@@ -45,6 +40,43 @@ namespace WebMvc.Controllers
             }
             return View(usuario);
 
+        }
+        public async Task<IActionResult> SignUp()
+        {
+            return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> SignUp(RegistroViewModel usuarioRegistrado)
+        {
+            if (ModelState.IsValid)
+            {
+                var usuario = new Usuario
+                {
+                    UserName = usuarioRegistrado.Email,
+                    Email = usuarioRegistrado.Email,
+                    Nombre = usuarioRegistrado.Nombre,
+                    Apellido = usuarioRegistrado.Apellido
+                };
+                var resultado = await _userManager.CreateAsync(usuario, usuarioRegistrado.Clave);
+                if (resultado.Succeeded)
+                {
+                    await _signInManager.SignInAsync(usuario, isPersistent: false);
+                    return RedirectToAction("Index", "Home");
+                }
+                else
+                {
+                    foreach (var error in resultado.Errors)
+                    {
+                        ModelState.AddModelError(string.Empty, error.Description);
+                    }
+                }
+            }
+            return View(usuarioRegistrado);
+        }
+        public IActionResult SignOut()
+        {
+            _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
