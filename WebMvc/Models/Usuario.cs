@@ -20,4 +20,14 @@ namespace WebMvc.Models
         public List<Favorito>? PeliculasFavoritas { get; set; }
         public List<Review>? ReviewsUsuario { get; set; }
     }
+    public class LogInViewModel
+    {
+        [EmailAddress(ErrorMessage ="Ingresar un email válido")]
+        [Required(ErrorMessage ="El correo es obligatori")]
+        public string Email{ get; set; }
+        [DataType(DataType.Password)]
+        [Required(ErrorMessage ="La clave es obligatoria")]
+        public string Clave { get; set; }
+        public bool Recordarme { get; set; }
+    }
 }

@@ -185,7 +185,7 @@ namespace WebMvc.Data
             }
 
             // 4) Rol admin y usuario administrador
-            const string adminRoleName = "Admin";
+            const string adminRoleName = "admin@libreria.local";
             const string adminEmail = "admin@libreria.local";
             const string adminPassword = "Admin123!"; // Cambiar en producción
 

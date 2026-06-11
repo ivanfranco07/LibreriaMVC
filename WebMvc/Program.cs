@@ -22,6 +22,19 @@ builder.Services.AddIdentityCore<Usuario>(options =>
  .AddEntityFrameworkStores<LibreriaDbContext>()
  .AddSignInManager();
 
+
+/*
+Manejo de Cookies
+Sin esta configuración, ASP.NET no sabe cómo leer 
+la sesión del usuario entre requests. AddAuthentication define el esquema por defecto, 
+y AddIdentityCookies registra las cookies que Identity usa para persistir el login. 
+*/
+builder.Services.AddAuthentication(opt =>
+{
+    opt.DefaultScheme = IdentityConstants.ApplicationScheme;
+})
+.AddIdentityCookies();
+
 builder.Services.ConfigureApplicationCookie(o =>
 {
     o.ExpireTimeSpan = TimeSpan.FromMinutes(60);
