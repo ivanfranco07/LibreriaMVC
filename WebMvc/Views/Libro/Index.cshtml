@@ -5,6 +5,8 @@
 }
 
 <main class="container mt-5 pt-5 pb-5">
+    <h2>Listado de libros</h2>
+    <a asp-action="Create" class="btn btn-primary">Agregar libro</a>
     <table id="miTabla" class="table table-striped">
         <thead>
             <tr>
@@ -15,13 +17,7 @@
                     @Html.DisplayNameFor(model => model.Isbn)
                 </th>
                 <th>
-                    @Html.DisplayNameFor(model => model.Editorial)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.FechaPublicacion)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CantidadDePaginas)
+                    Acciones
                 </th>
             </tr>
         </thead>
@@ -36,13 +32,9 @@
                         @Html.DisplayFor(modelItem => libro.Isbn)
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => libro.Editorial)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => libro.FechaPublicacion)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => libro.CantidadDePaginas)
+                        <a asp-action="Edit" asp-route-id="@libro.Id" class="btn btn-outline-primary">Editar</a>
+                        <a asp-action="Details" asp-route-id="@libro.Id" class="btn btn-outline-info">Detalles</a>
+                        <a asp-action="Delete" asp-route-id="@libro.Id" class="btn btn-outline-danger">Eliminar</a>
                     </td>
                 </tr>
             }

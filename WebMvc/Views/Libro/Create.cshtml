@@ -1,0 +1,91 @@
+@model WebMvc.Models.Libro
+
+@{
+    ViewData["Title"] = "Create";
+}
+<div style="margin-top:100px">
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row justify-content-center">
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <label asp-for="Nombre" class="control-label"></label>
+                    <input asp-for="Nombre" class="form-control" />
+                    <span asp-validation-for="Nombre" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Isbn" class="control-label"></label>
+                    <input asp-for="Isbn" class="form-control" />
+                    <span asp-validation-for="Isbn" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Editorial" class="control-label"></label>
+                    <input asp-for="Editorial" class="form-control" />
+                    <span asp-validation-for="Editorial" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="CantidadDePaginas" class="control-label"></label>
+                    <input asp-for="CantidadDePaginas" class="form-control" />
+                    <span asp-validation-for="CantidadDePaginas" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Precio" class="control-label"></label>
+                    <input asp-for="Precio" class="form-control" />
+                    <span asp-validation-for="Precio" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="UrlImagenTapa" class="control-label"></label>
+                    <input asp-for="UrlImagenTapa" class="form-control" />
+                    <span asp-validation-for="UrlImagenTapa" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input asp-action="Create" asp-route-id="@Model.Isbn" type="submit" value="Agregar" class="btn btn-primary" />
+                </div>
+                <div>Model
+                    <a asp-action="Index" class="btn btn-primary">Volver al listado</a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+
+                <div class="form-group">
+                    <label asp-for="Sinopsis" class="control-label"></label>
+                    <input asp-for="Sinopsis" class="form-control" />
+                    <span asp-validation-for="Sinopsis" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Idioma" class="control-label"></label>
+                    <input asp-for="Idioma" class="form-control" />
+                    <span asp-validation-for="Idioma" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="FechaPublicacion" class="control-label"></label>
+                    <input asp-for="FechaPublicacion" class="form-control" />
+                    <span asp-validation-for="FechaPublicacion" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="ListaAutores" class="control-label"></label>
+                    <input asp-for="ListaAutores" class="form-control" />
+                    <span asp-validation-for="ListaAutores" class="text-danger"></span>
+                </div>
+
+                <div class="form-group">
+                    <label asp-for="Categoria" class="control-label"></label>
+                    <input asp-for="Categoria" class="form-control" />
+                    <span asp-validation-for="Categoria" class="text-danger"></span>
+                </div>
+            </div>
+
+        </div>
+    </form>
+</div>
+
