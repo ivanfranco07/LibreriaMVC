@@ -75,6 +75,18 @@ if (!app.Environment.IsDevelopment())
     app.UseHsts();
 }
 
+/*
+Configuración para corregir el problema con el atributo Precio de tipo double, 
+que en la BBDD se representa en formato US, por ejemplo "22.5", 
+pero que en mi sistema local se hace de la forma "22,5".
+*/
+app.UseRequestLocalization(new RequestLocalizationOptions
+{
+    DefaultRequestCulture = new Microsoft.AspNetCore.Localization.RequestCulture("en-US"),
+    SupportedCultures = new[] { new System.Globalization.CultureInfo("en-US") },
+    SupportedUICultures = new[] { new System.Globalization.CultureInfo("en-US") }
+});
+
 app.UseHttpsRedirection();
 app.UseRouting();
 
