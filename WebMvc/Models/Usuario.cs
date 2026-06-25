@@ -47,6 +47,18 @@ namespace WebMvc.Models
         [Required(ErrorMessage ="Debes confirmar la clave")]
         [Compare("Clave", ErrorMessage ="Las claves no coinciden.")]
         public string ConfimarClave { get; set; }
-
+    }
+    public class ProfileViewModel
+    {
+        [Required(ErrorMessage = "Debes ingresar un nombre.")]
+        [StringLength(50)]
+        public string Nombre { get; set; }
+        [Required(ErrorMessage = "Debes ingresar un apellido.")]
+        [StringLength(50)]
+        public string Apellido { get; set; }
+        [EmailAddress(ErrorMessage = "Debes ingresar un email válido.")]
+        public string Email { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        public DateTime FechaNacimiento { get; set; }
     }
 }

@@ -4,97 +4,119 @@
 @inject UserManager<Usuario> UserManager
 
 @{
-    ViewData["Title"] = "Detalles";
+    ViewData["Title"] = "Detalles del Libro - " + Model.Nombre;
 }
 
+<main class="container mt-5 pt-5 pb-5">
+    <!-- Breadcrumbs and Back Button -->
+    <div class="d-flex justify-content-between align-items-center mb-4 mt-2">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0">
+                <li class="breadcrumb-item"><a href="/" class="text-decoration-none">Inicio</a></li>
+                <li class="breadcrumb-item"><a href="/Books" class="text-decoration-none">Libros</a></li>
+                <li class="breadcrumb-item active" aria-current="page">@Model.Nombre</li>
+            </ol>
+        </nav>
+    </div>
 
-<div style="margin-top:75px">
-    <h4>Libro</h4>
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Nombre)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Nombre)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Isbn)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Isbn)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Editorial)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Editorial)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CantidadDePaginas)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CantidadDePaginas)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Precio)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Precio)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.UrlImagenTapa)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.UrlImagenTapa)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Sinopsis)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Sinopsis)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Idioma)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Idioma)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.FechaPublicacion)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.FechaPublicacion)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ListaAutores)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ListaAutores)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Categoria)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Categoria.Descripcion)
-        </dd>
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Editar</a> |
-    @if (!SignInManager.IsSignedIn(User))
-    {
-        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Volver al inicio</a>
-    }
-    else if (SignInManager.IsSignedIn(User))
-    {
-        if (UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin").Result)
-        {
-            <a asp-controller="Libro" asp-action="Index" class="btn btn-primary">Volver al listado</a>
-        }
-        else
-        {
-            <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Volver al inicio</a>
-        }
+    <div class="row g-5">
+        <!-- Left Column: Book Cover -->
+        <div class="col-lg-4">
+            <div class="card border-0 shadow-sm p-4 bg-light text-center sticky-top" style="top: 100px;">
+                <img src="@Model.UrlImagenTapa" class="img-fluid rounded shadow-lg mb-4" alt="@Model.Nombre">
+                <div class="d-grid gap-2">
+                    <div class="mb-3 text-start">
+                        <small class="text-uppercase text-secondary fw-bold" style="font-size: 11px;">Precio</small>
+                        <h2 class="fw-bold text-primary mb-0">$@Html.DisplayFor(model => model.Precio)</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    }
-</div>
+        <!-- Right Column: Details -->
+        <div class="col-lg-8">
+            <div class="mb-4">
+                <span class="badge bg-light text-primary border mb-2">@Model.Categoria?.Descripcion</span>
+                <h1 class="display-5 fw-bold mb-3">@Model.Nombre</h1>
+                <div class="d-flex align-items-center gap-3 text-secondary">
+                    <span class="d-flex align-items-center gap-1">
+                        <i class="bi bi-person-circle"></i>
+                        @if (Model.ListaAutores != null && Model.ListaAutores.Any())
+                        {
+                            @string.Join(", ", Model.ListaAutores.Select(a => a.Nombre))
+                        }
+                        else
+                        {
+                            <span>Autor Desconocido</span>
+                        }
+                    </span>
+                    <span class="vr"></span>
+                    <span class="d-flex align-items-center gap-1">
+                        <i class="bi bi-building"></i> @Model.Editorial
+                    </span>
+                    <span class="vr"></span>
+                    <span class="d-flex align-items-center gap-1">
+                        <i class="bi bi-calendar3"></i> @Model.FechaPublicacion.ToString("yyyy/MM/dd")
+                    </span>
+                </div>
+            </div>
+
+            <hr class="my-4 opacity-10">
+
+            <!-- Technical Specifications Grid -->
+            <div class="row g-4 mb-5">
+                <div class="col-sm-6 col-md-3">
+                    <div class="card h-100 border-0 bg-light p-3">
+                        <small class="text-uppercase text-secondary fw-bold mb-1" style="font-size: 10px;">ISBN-13</small>
+                        <span class="fw-bold">@Model.Isbn</span>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="card h-100 border-0 bg-light p-3">
+                        <small class="text-uppercase text-secondary fw-bold mb-1" style="font-size: 10px;">Idioma</small>
+                        <span class="fw-bold">@Model.Idioma</span>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="card h-100 border-0 bg-light p-3">
+                        <small class="text-uppercase text-secondary fw-bold mb-1" style="font-size: 10px;">Páginas</small>
+                        <span class="fw-bold">@Model.CantidadDePaginas</span>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3">
+                    <div class="card h-100 border-0 bg-light p-3">
+                        <small class="text-uppercase text-secondary fw-bold mb-1" style="font-size: 10px;">Lanzamiento</small>
+                        <span class="fw-bold">@Model.FechaPublicacion.Year</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-5">
+                <h4 class="fw-bold mb-3 border-bottom pb-2">Sinopsis</h4>
+                <p class="lead text-secondary" style="line-height: 1.8;">
+                    @Model.Sinopsis
+                </p>
+            </div>
+            <div>
+                @if (!SignInManager.IsSignedIn(User))
+                {
+                    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Volver al inicio</a>
+                }
+                else if (SignInManager.IsSignedIn(User))
+                {
+                    if (UserManager.IsInRoleAsync(await UserManager.GetUserAsync(User), "Admin").Result)
+                    {
+                        <a asp-action="Edit" asp-route-id="@Model?.Id" class="btn btn-primary">Editar</a>
+
+                        <a asp-controller = "Libro" asp-action = "Index" class= "btn btn-primary" > Volver al listado</a>
+                    }
+                    else
+                    {
+                        <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Volver al inicio</a>
+                    }
+
+                }
+            </div>
+        </div>
+    </div>
+</main>

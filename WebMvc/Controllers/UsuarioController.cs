@@ -78,5 +78,25 @@ namespace WebMvc.Controllers
             _signInManager.SignOutAsync();
             return RedirectToAction("Index", "Home");
         }
+        
+        public IActionResult Profile()
+        {
+            var usuarioActual = _userManager.GetUserAsync(User).Result;
+
+            if (usuarioActual == null)
+            {
+                return RedirectToAction("LogIn");
+            }
+
+            var model = new ProfileViewModel
+            {
+                Nombre = usuarioActual.Nombre,
+                Apellido = usuarioActual.Apellido,
+                Email = usuarioActual.Email,
+                FechaNacimiento = usuarioActual.FechaNacimiento
+            };
+
+            return View(model);
+        }
     }
 }
