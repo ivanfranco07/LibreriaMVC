@@ -47,10 +47,24 @@
 } *@
 
 @section Scripts {
-    <script src="~/lib/datatables/datatables.min.js"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
     <script>
-        $(document).ready(function () {
-            $('#miTabla').DataTable();
+        // $(document).ready(function () {
+        //     $('#miTabla').DataTable();
+        // });
+                $(document).ready(function () {
+                    $('#miTabla').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json'
+            },
+            pageLength: 10,           // cantidad de filas por página
+            lengthMenu: [5, 10, 25, 50], // opciones del selector "mostrar X registros"
+            order: [[0, 'asc']],      // columna y orden inicial (0 = primera columna)
+            columnDefs: [
+                { targets: 2, type: 'num' }    // forzar tipo de dato para ordenar bien (ej. precios)
+            ],
+            responsive: true          // si tenés el plugin Responsive instalado
+        });
         });
     </script>
 }
